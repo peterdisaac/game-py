@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Peter Isaac
 
 # Tic Tac Toe Game
