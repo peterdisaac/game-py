@@ -8,13 +8,6 @@ import sys
 import os
 import platform
 from os import system
-import math
-
-COMPUTER = +1
-PLAYER = 0
-
-# Two Player Functions
-# ----------------------
 
 def start_two_player_game(board):
     '''
