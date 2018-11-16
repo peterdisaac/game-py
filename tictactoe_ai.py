@@ -278,7 +278,7 @@ def clear_screen():
 def main():
     board = [[-1 for x in range(3)] for y in range(3)]
 
-    start_two_player_game(board)
+    start_one_player_game(board)
 
 
 if __name__ == "__main__":
