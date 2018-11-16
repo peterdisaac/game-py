@@ -6,13 +6,13 @@ from random import choice
 
 COMPUTER = 1
 PLAYER = 0
+PLAYER_CHOICE = -1 # Set to 1 for X and 0 for O
 
-# One Player Functions
-#-----------------------
 def start_one_player_game(board):
     player = ''
     move = 0
     won = False
+    first = 0
 
     print("Welcome to Tic-Tac-Toe: One Player Mode")
 #   instructions()
@@ -28,14 +28,15 @@ def start_one_player_game(board):
             print(player)
             print("Invalid choice. Try again.")
 
-    first = 0
     if player == 'X':
         computer = 0
         player = 1
         first = 1
+        PLAYER_CHOICE = 1
     else:
         computer = 1
         player = 0
+        PLAYER_CHOICE = 0
 
     while not check_win(board):
         print_board(board)
@@ -200,7 +201,7 @@ def minimax(board, player, depth):
         board[x][y] = player
         score = minimax(board, -player, depth-1)
         board[x][y] = -1
-        score[0], score[y] = x, y
+        score[0], score[1] = x, y
 
     if player == COMPUTER:
         if score[2] > best_move[2]:
@@ -220,7 +221,6 @@ def blank_position(board):
 
 
 def heuristic(board, player):
-
     if check_winner(board, COMPUTER):
         score = +1
     elif check_winner(board, PLAYER):
@@ -231,6 +231,9 @@ def heuristic(board, player):
 
 
 def check_winner(board, player):
+    '''
+    Checks if the player won, returns True if they did
+    '''
     winning_board = [
         [board[0][0], board[0][1], board[0][2]],
         [board[1][0], board[1][1], board[1][2]],
@@ -245,8 +248,6 @@ def check_winner(board, player):
         return True
     else:
         return False
-#-----------------------
-# End One Player Functions
 
 
 def print_board(gameboard):
@@ -273,19 +274,11 @@ def clear_screen():
     else:
         system('clear')
 
+        
 def main():
     board = [[-1 for x in range(3)] for y in range(3)]
-#    print_board(board)
 
-    try:
-        if sys.argv[1] == "2":
-            # Two Player Mode
-            start_two_player_game(board)
-    except IndexError:
-            # One Player Mode
-            start_one_player_game(board)
-    else:
-        start_two_player_game(board)
+    start_two_player_game(board)
 
 
 if __name__ == "__main__":
